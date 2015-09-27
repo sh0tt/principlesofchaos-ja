@@ -77,14 +77,37 @@
 <p class="c2"><span class="c3">正常状態をより激しく破壊しようとすればするほど、システムの状態についてより自信が持てるようになります.&nbsp;仮に弱点が露呈したとしても、この振る舞いがシステムに与える影響を大きく顕在化させる前に改善できるターゲットを見つける事が出来ます.</span></p>
 <p class="c1"><span class="c0"></span></p>
 <h3 class="c2 c12"><a name="h.pbt9yqhet2a1"></a><span class="c17">ADVANCED PRINCIPLES(アドバンスドな原則)</span></h3>
-<p class="c2"><span class="c0">The following principles describe an ideal application of Chaos Engineering, applied to the processes of experimentation described above. &nbsp;The degree to which these principles are pursued strongly correlates to the confidence we can have in a distributed system at scale.</span></p>
-<h4 class="c2 c15"><a name="h.aor3c2didy5z"></a><span class="c13">Build a Hypothesis around Steady State Behavior</span></h4><p class="c2 c9"><span class="c0">Focus on the </span><span class="c0">measurable output</span><span class="c0">&nbsp;of a system, rather than internal attributes of the system. &nbsp;Measurements of that output over a short period of time constitute a proxy for the system’s steady state.</span><span class="c0">&nbsp; The overall system’s throughput, error rates, latency percentiles, etc. could all be metrics of interest representing steady state behavior. &nbsp;By focusing on systemic behavior patterns during experiments, </span><span class="c0">Chaos verifies that the system </span><span class="c0 c11">does</span><span class="c0">&nbsp;work, rather than trying to validate </span><span class="c0 c11">how</span><span class="c0">&nbsp;it works.</span></p>
-<h4 class="c2 c15"><a name="h.xx9pyjy8b6fj"></a><span class="c13">Vary Real-world Events</span></h4>
-<p class="c2 c9"><span class="c0">Chaos variables reflect real-world events. &nbsp;Prioritize events either by potential impact or estimated frequency</span><span class="c0">.</span><span class="c0">&nbsp; Consider events that correspond to hardware failures like servers dying, </span><span class="c0">software failures like malformed responses</span><span class="c0">, and non-failure events like a spike in traffic or a scaling event. &nbsp;Any event capable of disrupting steady state is a potential variable in a Chaos experiment.</span></p>
-<h4 class="c2 c15"><a name="h.vb69dlzcejn7"></a><span class="c13">Run Experiments in Production</span></h4><p class="c2 c9"><span class="c0">Systems behave differently depending on environment and traffic patterns. &nbsp;Since the behavior of utilization can change at any time, sampling real traffic is the only way to reliably capture the request path. &nbsp;To guarantee both authenticity of the way in which the system is exercised and relevance to the current deployed system, </span><span class="c0">Chaos strongly prefers to experiment directly on production traffic</span><span class="c0">.</span></p>
-<h4 class="c2 c15"><a name="h.j261x4z5mpi0"></a><span class="c13">Automate Experiments to Run Continuously</span></h4><p class="c2 c9"><span class="c0">Running experiments manually is labor-intensive and ultimately unsustainable. &nbsp;Automate experiments and run them continuously. &nbsp;Chaos Engineering builds automation into the system to drive both orchestration and analysis.</span></p>
+<p class="c2"><span class="c0">下記の原則は、上記に書かれた実験のプロセスを適用して、ケイオスエンジニアリングの理想的なアプリケーションを指し示しています.&nbsp;どの原則を強く追い求めるかの度合いは、スケール時の分散システムへの自信と相互に関連しあっています.</span></p>
+
+<h4 class="c2 c15"><a name="h.aor3c2didy5z"></a><span class="c13">正常な振る舞いに関する仮説の構築</span></h4>
+<p class="c2 c9">システムのインターナルな属性ではなく、システムの<span class="c0">測定可能なアウトプット</span><span class="c0">にフォーカスすること.</span>
+<span class="c0">&nbsp;短い時間におけるそのアウトプットの測定は、シウステムの正常な状態の代わりの構成要素になります.</span>
+<span class="c0">&nbsp; システム全体のスループット、エラーレート、レイテンシパーセンタイル等のこれらアウトプットは、正常状態の振る舞いを表現する対象となる測定基準となりえます.
+&nbsp;実験中に全体の振る舞いのパターンに注目する事で、</span><span class="c0">ケイオスはシステムが<span class="c0 c11">どのように</span>動くかを検証しようとするのではなく、システムが</span>
+<span class="c0 c11">実際に正しく</span><span class="c0">&nbsp;動いているかどうかを確かめます.</span></p>
+
+
+<h4 class="c2 c15"><a name="h.xx9pyjy8b6fj"></a><span class="c13">実世界のイベントを多様に取り入れる</span></h4>
+<p class="c2 c9"><span class="c0">ケイオスの変数は実世界のイベントを反映します.&nbsp;考えられるインパクトの大きさや予測できる頻度によって、それらイベントに優先度をつけます</span><span class="c0">.</span>
+<span class="c0">サーバの突然死などのハードウェア障害、異常レスポンスなどのソフトウェア障害、トラフィックのスパイクやスケールするイベントの発生などの障害以外のイベントなどに相当するイベントを検討します.
+ケイオスエンジニアリングの実験では、これら安定状態を破壊する力のあるイベントは全て潜在的な変数として 扱います.</p>
+<h4 class="c2 c15"><a name="h.vb69dlzcejn7"></a><span class="c13">本番環境を使って実験を行う</span></h4>
+
+
+
+<p class="c2 c9"><span class="c0">システムは環境やトラフィックパターンによって振る舞いが異なります.&nbsp;利用状況の振る舞いはいつでも変わるため、実際のトラフィックをサンプリングする方法がリクエストパスを信頼できる方法でキャプチャーする唯一の方法です.
+システムが実際に動いているという確証と現状のデプロイされたシステムの関連性の双方を保証するためには、</span><span class="c0">ケイオスエンジニアリングは本番環境トラフィックで
+直接的に実験を行う方法を強く好んでいます</span><span class="c0">.</span></p>
+
+<h4 class="c2 c15"><a name="h.j261x4z5mpi0"></a><span class="c13">自動化された実験を継続的に実施す</span></h4><p class="c2 c9"><span class="c0">
+手動での実験実行は労働集約的で究極的には継続的な方法ではありません.&nbsp;実験を自動化して、継続的に実行するようにしましょう.
+&nbsp;ケイオスエンジニアリングはオーケストレーションと分析の双方をドライブするようにシステム内に自動化されています.</span></p>
 <p class="c1"><span class="c0"></span></p>
-<p class="c2"><span class="c0">Chaos Engineering is a powerful practice that is already changing how software is designed and engineered at some of the largest-scale operations in the world. &nbsp;Where other practices address velocity and flexibility, Chaos specifically tackles systemic uncertainty in these distributed systems. &nbsp;The Principles of Chaos provide confidence to innovate quickly at massive scales and give customers the high quality experiences they deserve.</span></p><p class="c21"><span></span></p></div>
+<p class="c2"><span class="c0">
+ケイオスエンジニアリングは強力な実践手法で、それは世界でも最大級のスケールの現場で使われるソフトウェアがどのようにデザインされて構築されるかを既に変えています.
+&nbsp;他の原理原則が分散システムの速度や柔軟性の問題を解決してくれるように、ケイオスエンジニアリングはこれら分散システムの全体の不確実性という問題に明確に取り組んでいます.
+&nbsp;ケイオスエンジニアリング原則は大規模スケール環境下での速い確信と顧客が受けるべき高品質なエクスペリエンスを提供するための自信をもたらしてくれます.</span></p><p class="c21"><span></span></p>
 
-
+<p class="c2"><span class="c0">(Translated by Shinpei Ohtani)</span></p>
+</div>
 </body></html>
